@@ -47,19 +47,21 @@ def crushAndBack(img):
     img = img.resize((int(w ** .90), int(h ** .90)), resample = Image.BICUBIC)
     img = img.resize((w,h), resample = Image.BICUBIC)
     return img
+
 def addFlare(img):
     ''' Initialising dlib for frontal facial features '''
     flare = Image.open('flare.png')
     detect = dlib.get_frontal_face_detector()
-    predict = dlib.shape_predictor("assets\shape_predictor_68_face_landmarks.dat")
+    face_landmarks_file =  "assets/shape_predictor_68_face_landmarks.dat"
+    face_landmarks_file = os.path.abspath(face_landmarks_file)
+    predict = dlib.shape_predictor(face_landmarks_file)
 
     (lS, lE) = face_utils.FACIAL_LANDMARKS_68_IDXS["left_eye"]
     (rS, rE) = face_utils.FACIAL_LANDMARKS_68_IDXS["right_eye"]
     
 
-    imgCV = cv2.imread('test.jpg')
+    imgCV = cv2.imread('temp.jpg')
     #imgCV = cv2.imread('test2.jpg')
-
 
     gray = cv2.cvtColor(imgCV, cv2.COLOR_BGR2GRAY)
     subjects = detect(gray, 0)
@@ -111,6 +113,7 @@ def main():
         img = img.convert('RGB')
         img = crushAndBack(img)
         img = generateHue(img)
+        img.save('temp.jpg')
         img = addFlare(img)
         
         img.show()
