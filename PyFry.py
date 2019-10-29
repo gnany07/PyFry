@@ -110,7 +110,6 @@ def addFlare(img):
 def pyfry():
     # grab a reference to the image panels
     global panelA, panelB
-    print("panelA set to global variable")
     # open a file chooser dialog and allow the user to select an input
     # image
     img_path = filedialog.askopenfilename()
@@ -173,7 +172,6 @@ root = tk.Tk()
 root.title("Welcome to PyFry")
 
 # root.geometry("600x100")
-print("panelA defined as null")
 panelA = None
 panelB = None
 
